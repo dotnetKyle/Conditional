@@ -1,0 +1,95 @@
+﻿<Window x:Class="TestApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestApp"
+        xmlns:conditional="clr-namespace:Conditional;assembly=Conditional"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:MainVM_DesignData, IsDesignTimeCreatable=True}"
+        Title="MainWindow" MinWidth="400">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label  Content="Person Details:" FontSize="24" HorizontalAlignment="Left" />
+
+        <conditional:IfElse Condition="{Binding IsEditMode}" Grid.Row="1">
+            <conditional:IfElse.If>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="First Name:" Grid.Column="0" Grid.Row="0"/>
+                    <TextBox Text="{Binding FirstName}"  Grid.Column="1" Grid.Row="0"/>
+
+                    <Label Content="Middle Name:" Grid.Column="0" Grid.Row="1"/>
+                    <TextBox Text="{Binding MiddleName}"  Grid.Column="1" Grid.Row="1"/>
+
+                    <Label Content="Last Name:" Grid.Column="0" Grid.Row="2"/>
+                    <TextBox Text="{Binding LastName}" Grid.Column="1" Grid.Row="2"/>
+
+                </Grid>
+            </conditional:IfElse.If>
+            <conditional:IfElse.Else>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="First Name:" Grid.Column="0" Grid.Row="0"/>
+                    <TextBlock Text="{Binding FirstName}"  Grid.Column="1" Grid.Row="0"/>
+
+                    <Label Content="Middle Name:" Grid.Column="0" Grid.Row="1"/>
+                    <TextBlock Text="{Binding MiddleName}"  Grid.Column="1" Grid.Row="1"/>
+
+                    <Label Content="Last Name:" Grid.Column="0" Grid.Row="2"/>
+                    <TextBlock Text="{Binding LastName}" Grid.Column="1" Grid.Row="2"/>
+
+                </Grid>
+            </conditional:IfElse.Else>
+        </conditional:IfElse>
+
+        <conditional:If Condition="{Binding IsEditMode}" 
+                        HorizontalAlignment="Left" 
+                        Grid.Row="2">
+            <Button Click="Cancel_Click" 
+                    Margin="5" 
+                    VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                    Grid.Column="0" Grid.Row="3">Cancellll</Button>
+        </conditional:If>
+
+        <conditional:IfElse Condition="{Binding IsEditMode}" 
+                            HorizontalAlignment="Right"
+                            Grid.Row="2">
+            <conditional:IfElse.If>
+                <Button Click="ViewMode_Click"
+                        Margin="5"
+                        Grid.Column="1" Grid.Row="3">View Mode</Button>
+            </conditional:IfElse.If>
+            <conditional:IfElse.Else>
+                <Button Click="EditMode_Click" 
+                        Margin="5" 
+                        Grid.Column="1" Grid.Row="3">Edit Mode</Button>
+            </conditional:IfElse.Else>
+        </conditional:IfElse>
+    </Grid>
+</Window>
